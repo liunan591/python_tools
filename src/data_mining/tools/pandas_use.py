@@ -26,10 +26,23 @@ df=pandas.DataFrame([s1,s2]) #使用列表的列表建立，每一行为一个�
 df=pandas.DataFrame({"a":s1,"b":s2}) #使用字典结合列表建立，每一列为一个列表，字典key作为新对象的列的标题
 
 #查看对象中的元素
-df.columns #返回列名称列表
+df.columns #返回列名称列表，.tolist()可以将结果转化为list
+df.loc[0:6] #类似于数组切片
+df["列名"]    #根据列名定位列，中括号里边可以传list
 for index, row in df.iterrows(): #以行遍历整个数据，返回值为每行数据的数组
     print(row.values)
-head(n), tail(n) #取出头n行或尾n行的方法，默认n=5
+#df.head(n), df.tail(n) #取出头n行或尾n行的方法，默认n=5
 
 #元素统计方法
 df.shape    #返回数据行数和列数组成的元素
+
+#计算+-*/
+df["列名"]/1000   #对列进行除以1000的操作
+df["列名"]*df["列名"]    #对应位置运算
+
+#特征
+df["列名"].max()  #min,average
+
+#排序
+df.sort_values("列名", inplace = True)    #替换原有列，从小到大
+df.sort_values("列名", inplace = True, ascending = False)    #替换原有列，从大到小
