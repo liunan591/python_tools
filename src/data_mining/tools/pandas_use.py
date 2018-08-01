@@ -27,7 +27,7 @@ df=pandas.DataFrame({"a":s1,"b":s2}) #使用字典结合列表建立，每一列
 
 #查看对象中的元素
 df.columns #返回列名称列表，.tolist()可以将结果转化为list
-df.loc[0:6] #类似于数组切片
+df.iloc[0:6] #类似于数组切片
 df["列名"]    #根据列名定位列，中括号里边可以传list
 for index, row in df.iterrows(): #以行遍历整个数据，返回值为每行数据的数组
     print(row.values)
@@ -46,3 +46,12 @@ df["列名"].max()  #min,average
 #排序
 df.sort_values("列名", inplace = True)    #替换原有列，从小到大
 df.sort_values("列名", inplace = True, ascending = False)    #替换原有列，从大到小
+
+#%%3.数据探索
+
+#查找空值及处理
+df.isnull()
+pandas.isnull(df)
+
+#分类处理
+df.pivot_table(index,values,aggfunc)

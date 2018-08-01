@@ -76,6 +76,11 @@ np.r_[arr1, arr2]
 np.concatenate([arr1, arr2], axis=1)    #shape = 6,2
 np.hstack((arr1, arr2)) # horizontal
 np.c_[arr1, arr2]
+
+#split matrix
+np.hsplit(matrix,n) #split to n parts by rows
+np.hsplit(matrix,(l1,l2)) #split at the position of l1,l2 
+np.vsplit
  
 #split array
 arr = np.random.rand(5,5)
