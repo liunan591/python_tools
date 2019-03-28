@@ -4,21 +4,9 @@ import datetime
 from concurrent import futures
 import requests
 from bs4 import BeautifulSoup
+from src.utility.pangolin_logger import PangolinLogger
+from hashlib import md5
 
-
-
-header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36'}
-proxy = {}
-location = "http://www.grmg.com.cn"
-info_list = []
-for url in url_list:
-    url = location + url
-    get = requests.get(url, headers= header, proxies= proxy)
-    content = BeautifulSoup(get.content, 'lxml')
-    message_find = content.select('.artcon')
-    message = ""
-    for m in message_find:
-        info_list.append(message + m.get_text(strip=True))
 #%%info
 class ProjectInfo():
 
