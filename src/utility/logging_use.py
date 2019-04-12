@@ -8,3 +8,4 @@ with open(CONFIG_FILE,"r",encoding="utf-8") as f:
 
 logging.critical("a")
 logging.exception("Failed to open sklearn.txt from logger.exception")
+
