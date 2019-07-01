@@ -1,0 +1,92 @@
+version: 1
+formatters:
+  simple:
+    ###format可用参数
+    #%(name)s :Name of the logger (logging channel)
+    #%(levelno)s：打印日志级别的数值
+    #%(levelname)s：打印日志级别的名称
+    #%(pathname)s：打印当前执行程序的路径，其实就是sys.argv[0]
+    #%(filename)s：打印当前执行程序名
+    #%(funcName)s：打印日志的当前函数
+    #%(lineno)d：打印日志的当前行号
+    #%(asctime)s：打印日志的时间
+    #%(thread)d：打印线程ID
+    #%(threadName)s：打印线程名称
+    #%(process)d：打印进程ID
+    #%(message)s：打印日志信息
+    format: '%(asctime)s,%(name)s,%(levelname)s,%(message)s'
+    datefmt: "%Y%m/%d %H:%M:%S"
+    # 定义同datetime.strftime()
+filters:
+  require_debug_true:
+    (): django.utils.log.RequireDebugTrue
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    filters:
+      - require_debug_true
+    formatter: simple
+    stream: ext://sys.stdout
+  info_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: ../log/mestool_info.log.csv
+    maxBytes: 10485760
+    backupCount: 20
+    encoding: utf8
+  error_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: ../log/mestool_errors.log.csv
+    maxBytes: 10485760
+    backupCount: 20
+    encoding: utf8
+  other:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: ../log/mestool_django.log.csv
+    maxBytes: 10485760
+    backupCount: 20
+    encoding: utf8
+#  email:
+#    class: logging.handlers.SMTPHandler
+#    mailhost: localhost
+#    fromaddr: my_app@domain.tld
+#    toaddrs:
+#      - support_team@domain.tld
+#      - dev_team@domain.tld
+#    subject: Houston, we have a problem.
+#  根据时间区间生成日志文件:
+#    class: logging.handlers.TimedRotatingFileHandler
+#    level: ERROR
+#    formatter: simple
+#    filename: info.log
+#    #如果设定是天，就必须写成“%Y-%m-%d.log”
+#    suffix: "%Y-%m-%d_%H-%M-%S.log"# 设置后缀名称，跟strftime的格式一样
+#    when: S  #定义间隔单位为秒；“S”: Seconds，“M”: Minutes，“H”: Hours，“D”: Days，“W”: Week day
+#    interval: 1     #定义间隔一个1秒换一次log文件的handler
+#    backupCount:3   # 保留3个旧log文件
+#http
+#class=handlers.HTTPHandler
+#level=NOTSET
+#formatter=form09
+#args=('localhost:9022', '/log', 'GET')
+#kwargs={'secure': True}
+loggers:
+  mes_tools:
+    level: DEBUG
+    handlers: [console]
+    propagate: no
+#  my_module:
+#    level: ERROR
+#    handlers: [info_file_handler]
+#    propagate: no
+root:
+  level: DEBUG
+  handlers: [console,other]
+
+

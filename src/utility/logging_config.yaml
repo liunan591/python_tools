@@ -3,10 +3,15 @@ formatters:
   simple:
     format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     datefmt: "%m/%d/%Y %H:%M:%S %p"
+filters:
+  require_debug_true:
+    (): django.utils.log.RequireDebugTrue
 handlers:
   console:
     class: logging.StreamHandler
     level: DEBUG
+    filters:
+      - require_debug_true
     formatter: simple
     stream: ext://sys.stdout
   info_file_handler:
@@ -25,6 +30,14 @@ handlers:
     maxBytes: 10485760
     backupCount: 20
     encoding: utf8
+  email:
+    class: logging.handlers.SMTPHandler
+    mailhost: localhost
+    fromaddr: my_app@domain.tld
+    toaddrs:
+      - support_team@domain.tld
+      - dev_team@domain.tld
+    subject: Houston, we have a problem.
 #  info_handler:
 #    class: logging.handlers.TimedRotatingFileHandler
 #    level: ERROR
